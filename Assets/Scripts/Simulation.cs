@@ -7,34 +7,50 @@ using UnityEngine;
 public class Simulation : MonoBehaviour
 {
     [SerializeField] private int NumberOfSmurfs = 5;
-    [SerializeField] private int NumberOfGargamels = 5;
+    [SerializeField] private int NumberOfGargamels = 3;
     [SerializeField] private int NumberOfKlakiers = 0;
+    [SerializeField] private int NumberOfBushes = 10;
 
     [SerializeField] private GameObject Smurf;
     [SerializeField] private GameObject Gargamel;
     [SerializeField] private GameObject Klakier;
+    [SerializeField] private GameObject Bush;
     
-    [SerializeField] private GameObject[] Smurfs;
-    [SerializeField] private GameObject[] Gargamels;
+    [SerializeField] private List<GameObject> Smurfs;
+    [SerializeField] private List<GameObject> Gargamels;
     [SerializeField] private List<GameObject> Klakiers;
+    [SerializeField] private List<GameObject> Bushes;
 
+
+    private void Awake() {
+        List<GameObject> Smurfs = new List<GameObject>();
+        List<GameObject> Gargamels = new List<GameObject>();
+        List<GameObject> Klakiers = new List<GameObject>();
+        List<GameObject> Bushes = new List<GameObject>();
+    }
 
     void Start()
     {
-        Smurfs = new GameObject[NumberOfSmurfs];
-        Gargamels = new GameObject[NumberOfGargamels];
-        List<GameObject> Klakiers = new List<GameObject>();
-
-        //Create First Objects
+        //Create Objects defined by User
+        //Vector3.zero will be replaced with random position inside the field
         for(int i = 0; i < NumberOfSmurfs; i++){
-            Smurfs[i] = Instantiate(Smurf, Vector3.zero, Quaternion.identity);
-            Smurfs[i].name = "Smurf " + i;
+            GameObject NewSmurf = Instantiate(Smurf, Vector3.zero, Quaternion.identity);
+            Smurfs.Add(NewSmurf);
+            NewSmurf.name = "Smurf " + i;
+            
         }
         for(int j = 0; j < NumberOfGargamels; j++){
-            Gargamels[j] = Instantiate(Gargamel, Vector3.zero, Quaternion.identity);
-            Gargamels[j].name = "Gargamel " + j;
+            GameObject NewGargamel = Instantiate(Gargamel, Vector3.zero, Quaternion.identity);
+            Gargamels.Add(NewGargamel);
+            NewGargamel.name = "Gargamel " + j;
+            
         }
-        
+        for(int k = 0; k < NumberOfBushes; k++){
+            GameObject NewBush = Instantiate(Bush, Vector3.zero, Quaternion.identity);
+            Bushes.Add(NewBush);
+            NewBush.name = "Bush " + k;
+            
+        }
         //GameObject S = Instantiate(Smurf, Vector3.zero, Quaternion.identity);
         //GameObject G = Instantiate(Gargamel, Vector3.zero, Quaternion.identity);
         //GameObject K = Instantiate(Klakier, Vector3.zero, Quaternion.identity);
@@ -43,6 +59,9 @@ public class Simulation : MonoBehaviour
         
         //StartSimulation
         StartCoroutine("StartSimulation");
+
+
+
         /*
         S.GetComponent<Movement>().Move();
         G.GetComponent<Movement>().Move();
@@ -62,19 +81,23 @@ public class Simulation : MonoBehaviour
         
         while (true)
         {
+            Debug.Log("Sim");
             yield return new WaitForSeconds(1);
             //Simulate Smurfs
-            for(int i = 0; i < Smurfs.Length; i++){
+            foreach(GameObject smurf in Smurfs){
                 switch (Random.Range(1,4))
                 {
                     case 1:
-                        Smurfs[i].GetComponent<Movement>().Move();
+                        smurf.GetComponent<Movement>().Move();
                         break;
                     case 2:
-                        Debug.Log(Smurfs[i].name + " Is looking for G");
+                        Debug.Log(smurf.name + " Is looking for G");
+                        smurf.GetComponent<Vision>().Look("SmurfG", Gargamels);
+                        smurf.GetComponent<Vision>().Look("SmurfG", Klakiers);
                         break;
                     case 3:
-                        Debug.Log(Smurfs[i].name + "Is looking for Berries");
+                        Debug.Log(smurf.name + "Is looking for Berries");
+                        smurf.GetComponent<Vision>().Look("SmurfB", Bushes);
                         break;
                     default:
                         Debug.Log("Rand not Working?");
@@ -82,18 +105,19 @@ public class Simulation : MonoBehaviour
                 }
             }
             //Simulate Gargamels
-            for(int j = 0; j < Gargamels.Length; j++){
+            foreach(GameObject gargamel in Gargamels){
                 switch (Random.Range(1,4))
                 {
                     case 1:
-                        Gargamels[j].GetComponent<Movement>().Move();
+                        gargamel.GetComponent<Movement>().Move();
                         break;
                     case 2:
-                        Debug.Log(Gargamels[j].name + " Is looking for S");
+                        Debug.Log(gargamel.name + " Is looking for S");
+                        gargamel.GetComponent<Vision>().Look("Gargamel", Smurfs);
                         break;
                     case 3:
-                        AddKlakier(Gargamels[j].GetComponent<SpawnKlakier>().Spawn(Klakier));
-                        Debug.Log(Gargamels[j].name + "Is Spawning Klakier");
+                        AddKlakier(gargamel.GetComponent<SpawnKlakier>().Spawn(Klakier));
+                        Debug.Log(gargamel.name + "Is Spawning Klakier");
                         break;
                     default:
                         Debug.Log("Rand not Working?");
@@ -110,6 +134,7 @@ public class Simulation : MonoBehaviour
                         break;
                     case 2:
                         Debug.Log(klakier.name + " Is looking for S");
+                        klakier.GetComponent<Vision>().Look("Klakier", Smurfs);
                         break;
                     default:
                         Debug.Log("Rand not Working?");

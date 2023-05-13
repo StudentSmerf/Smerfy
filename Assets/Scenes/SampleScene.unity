@@ -216,29 +216,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181795594}
-  - component: {fileID: 1181795593}
+  - component: {fileID: 1181795595}
   m_Layer: 0
   m_Name: Simulation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &1181795593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181795592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e08e78fd775a7e46b5e37a19204538f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Smurf: {fileID: 348495293972991962, guid: 42a6167f7f3dacf45b2ce88b72e90019, type: 3}
-  Gargamel: {fileID: 3586172306633565828, guid: e745988cc2c2c2643af6413340b030b5, type: 3}
-  Klakier: {fileID: 5698553589695994236, guid: c6444d7caf34f5d408d67e1995b70ae0, type: 3}
 --- !u!4 &1181795594
 Transform:
   m_ObjectHideFlags: 0
@@ -254,3 +239,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1181795595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181795592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e08e78fd775a7e46b5e37a19204538f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfSmurfs: 5
+  NumberOfGargamels: 3
+  NumberOfKlakiers: 0
+  NumberOfBushes: 10
+  Smurf: {fileID: 348495293972991962, guid: 42a6167f7f3dacf45b2ce88b72e90019, type: 3}
+  Gargamel: {fileID: 3586172306633565828, guid: e745988cc2c2c2643af6413340b030b5, type: 3}
+  Klakier: {fileID: 5698553589695994236, guid: c6444d7caf34f5d408d67e1995b70ae0, type: 3}
+  Bush: {fileID: 6410390324902737404, guid: a5d64d301a22bd743a6cb64ca9f41659, type: 3}
+  Smurfs: []
+  Gargamels: []
+  Klakiers: []
+  Bushes: []

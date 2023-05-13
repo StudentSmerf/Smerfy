@@ -44,7 +44,7 @@ public class Movement : MonoBehaviour
 
     class Mover{
         public float speed = 10f;
-        public Mover(){}
+        //public Mover(){}
         
         public virtual void SetSpeed(){}
         public float GetSpeed(){
