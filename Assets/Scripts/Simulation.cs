@@ -92,11 +92,11 @@ public class Simulation : MonoBehaviour
                         break;
                     case 5:
                         Debug.Log(smurf.name + " Is looking for G");
-                        smurf.GetComponent<Vision>().Look("SmurfG", Gargamels);
-                        smurf.GetComponent<Vision>().Look("SmurfG", Klakiers);
+                        smurf.GetComponent<Vision>().LookForG(Gargamels, Smurfs);
+                        smurf.GetComponent<Vision>().LookForG(Klakiers, Smurfs);
                         break;
                     case > 5:
-                        Debug.Log(smurf.name + "Is looking for Berries");
+                        //Debug.Log(smurf.name + "Is looking for Berries");
                         smurf.GetComponent<Vision>().Look("SmurfB", Bushes);
                         break;
                     default:
@@ -112,12 +112,12 @@ public class Simulation : MonoBehaviour
                         gargamel.GetComponent<Movement>().Move();
                         break;
                     case > 5:
-                        Debug.Log(gargamel.name + " Is looking for S");
+                        //Debug.Log(gargamel.name + " Is looking for S");
                         gargamel.GetComponent<Vision>().Look("Gargamel", Smurfs);
                         break;
                     case 5:
                         AddKlakier(gargamel.GetComponent<SpawnKlakier>().Spawn(Klakier));
-                        Debug.Log(gargamel.name + "Is Spawning Klakier");
+                        //Debug.Log(gargamel.name + "Is Spawning Klakier");
                         break;
                     default:
                         Debug.Log("Rand not Working?");
@@ -133,7 +133,7 @@ public class Simulation : MonoBehaviour
                         klakier.GetComponent<Movement>().Move();
                         break;
                     case 2:
-                        Debug.Log(klakier.name + " Is looking for S");
+                        //Debug.Log(klakier.name + " Is looking for S");
                         klakier.GetComponent<Vision>().Look("Klakier", Smurfs);
                         break;
                     default:

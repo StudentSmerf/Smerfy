@@ -20,26 +20,34 @@ public class Movement : MonoBehaviour
                     MS.SetSpeed();
                     rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MS.GetSpeed());
-                    Debug.Log(this.gameObject.name + " moves with speed " + MS.GetSpeed());
+                    //Debug.Log(this.gameObject.name + " moves with speed " + MS.GetSpeed());
                     break;
                 case "Gargamel":
                     MoveGargamel MG = new MoveGargamel();
                     MG.SetSpeed();
                     rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MG.GetSpeed());
-                    Debug.Log(this.gameObject.name + " moves with speed " + MG.GetSpeed());
+                    //Debug.Log(this.gameObject.name + " moves with speed " + MG.GetSpeed());
                     break;
                 case "Klakier":
                     MoveKlakier MK = new MoveKlakier();
                     MK.SetSpeed();
                     rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MK.GetSpeed());
-                    Debug.Log(this.gameObject.name + " moves with speed " + MK.GetSpeed());
+                    //Debug.Log(this.gameObject.name + " moves with speed " + MK.GetSpeed());
                     break;
                 default:
                     Debug.Log("Tag not defined");
                     break;
             }
+    }
+
+    public void Run(Vector3 dangerPosition){
+        RunSmurf MS = new RunSmurf();
+        MS.SetSpeed();
+        rb.velocity = Vector2.zero;
+        rb.AddForce((transform.position - dangerPosition) * MS.GetSpeed());
+        Debug.Log(this.gameObject.name + " runs with speed " + MS.GetSpeed());
     }
     
     
@@ -55,7 +63,11 @@ public class Movement : MonoBehaviour
 
       
     }
-
+    class RunSmurf : Mover{
+        public override void SetSpeed(){
+            speed = speed * 2f;
+        }
+    }
     class MoveSmurf : Mover{
         public override void SetSpeed(){
             speed = speed * 1.4f;

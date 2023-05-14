@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Vision : MonoBehaviour
 {
+    public GameObject[] Smurfs2;
     public void Look(string name, List<GameObject> Objects){
         switch (name)
             {
@@ -14,7 +15,7 @@ public class Vision : MonoBehaviour
                     foreach (GameObject bush in Objects)
                     {
                         if(LS.CanSee(bush.transform.position.x, bush.transform.position.y, this.transform.position.x, this.transform.position.y)){
-                            Debug.Log(this.gameObject.name + " found " + bush.gameObject.name);
+                            //Debug.Log(this.gameObject.name + " found " + bush.gameObject.name);
                             bush.GetComponent<GetPickedUp>().Pick("Bush");
                             return;
                         }
@@ -22,15 +23,7 @@ public class Vision : MonoBehaviour
                     break;
                 //Smurf looking for Gargamels/Klakiers
                 case "SmurfG":
-                    LookAsSmurf LS2 = new LookAsSmurf();
-                    LS2.GetRange();
-                    foreach (GameObject g in Objects)
-                    {
-                        if(LS2.CanSee(g.transform.position.x, g.transform.position.y, this.transform.position.x, this.transform.position.y)){
-                            Debug.Log(this.gameObject.name + " found " + g.gameObject.name);
-                            return;
-                        }
-                    }
+                    
                     break;
                 //Gargamel looking for Smurfs
                 case "Gargamel":
@@ -39,7 +32,7 @@ public class Vision : MonoBehaviour
                     foreach (GameObject s in Objects)
                     {
                         if(LG.CanSee(s.transform.position.x, s.transform.position.y, this.transform.position.x, this.transform.position.y)){
-                            Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
+                            //Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
                             s.GetComponent<GetPickedUp>().Pick("Smurf");
                         }
                     }
@@ -51,7 +44,7 @@ public class Vision : MonoBehaviour
                     foreach (GameObject s in Objects)
                     {
                         if(LK.CanSee(s.transform.position.x, s.transform.position.y, this.transform.position.x, this.transform.position.y)){
-                            Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
+                            //Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
                             s.GetComponent<GetPickedUp>().Pick("Smurf");
                             return;
                         }
@@ -61,6 +54,25 @@ public class Vision : MonoBehaviour
                     Debug.Log("Name not defined");
                     break;
             }
+    }
+
+    public void LookForG(List<GameObject> Gargamels, List<GameObject> Smurfs){
+        LookAsSmurf LS2 = new LookAsSmurf();
+        LS2.GetRange();
+        foreach (GameObject g in Gargamels)
+        {
+            if(LS2.CanSee(g.transform.position.x, g.transform.position.y, this.transform.position.x, this.transform.position.y)){
+                Debug.Log(this.gameObject.name + " found " + g.gameObject.name);
+                //this.gameObject.GetComponent<Movement>().Run(g.transform.position);
+                foreach (GameObject s in Smurfs)
+                {
+                    if(LS2.CanSee(s.transform.position.x, s.transform.position.y, this.transform.position.x, this.transform.position.y)){
+                        s.gameObject.GetComponent<Movement>().Run(g.transform.position);
+                    }
+                }
+                return;
+            }
+        }
     }
 
 
