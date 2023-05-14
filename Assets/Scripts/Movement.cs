@@ -18,18 +18,21 @@ public class Movement : MonoBehaviour
                 case "Smurf":
                     MoveSmurf MS = new MoveSmurf();
                     MS.SetSpeed();
+                    rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MS.GetSpeed());
                     Debug.Log(this.gameObject.name + " moves with speed " + MS.GetSpeed());
                     break;
                 case "Gargamel":
                     MoveGargamel MG = new MoveGargamel();
                     MG.SetSpeed();
+                    rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MG.GetSpeed());
                     Debug.Log(this.gameObject.name + " moves with speed " + MG.GetSpeed());
                     break;
                 case "Klakier":
                     MoveKlakier MK = new MoveKlakier();
                     MK.SetSpeed();
+                    rb.velocity = Vector2.zero;
                     rb.AddForce(direction * MK.GetSpeed());
                     Debug.Log(this.gameObject.name + " moves with speed " + MK.GetSpeed());
                     break;
@@ -43,8 +46,7 @@ public class Movement : MonoBehaviour
 
 
     class Mover{
-        public float speed = 10f;
-        //public Mover(){}
+        public float speed = 15f;
         
         public virtual void SetSpeed(){}
         public float GetSpeed(){

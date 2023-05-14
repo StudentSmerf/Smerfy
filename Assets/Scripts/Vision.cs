@@ -7,6 +7,7 @@ public class Vision : MonoBehaviour
     public void Look(string name, List<GameObject> Objects){
         switch (name)
             {
+                //Smurf looking for berries
                 case "SmurfB":
                     LookAsSmurf LS = new LookAsSmurf();
                     LS.GetRange();
@@ -14,10 +15,12 @@ public class Vision : MonoBehaviour
                     {
                         if(LS.CanSee(bush.transform.position.x, bush.transform.position.y, this.transform.position.x, this.transform.position.y)){
                             Debug.Log(this.gameObject.name + " found " + bush.gameObject.name);
+                            bush.GetComponent<GetPickedUp>().Pick("Bush");
                             return;
                         }
                     }
                     break;
+                //Smurf looking for Gargamels/Klakiers
                 case "SmurfG":
                     LookAsSmurf LS2 = new LookAsSmurf();
                     LS2.GetRange();
@@ -29,6 +32,7 @@ public class Vision : MonoBehaviour
                         }
                     }
                     break;
+                //Gargamel looking for Smurfs
                 case "Gargamel":
                     LookAsGargamel LG = new LookAsGargamel();
                     LG.GetRange();
@@ -36,9 +40,11 @@ public class Vision : MonoBehaviour
                     {
                         if(LG.CanSee(s.transform.position.x, s.transform.position.y, this.transform.position.x, this.transform.position.y)){
                             Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
+                            s.GetComponent<GetPickedUp>().Pick("Smurf");
                         }
                     }
                     break;
+                //Klakier looking for Smurfa
                 case "Klakier":
                     LookAsKlakier LK = new LookAsKlakier();
                     LK.GetRange();
@@ -46,6 +52,7 @@ public class Vision : MonoBehaviour
                     {
                         if(LK.CanSee(s.transform.position.x, s.transform.position.y, this.transform.position.x, this.transform.position.y)){
                             Debug.Log(this.gameObject.name + " found " + s.gameObject.name);
+                            s.GetComponent<GetPickedUp>().Pick("Smurf");
                             return;
                         }
                     }
@@ -59,7 +66,7 @@ public class Vision : MonoBehaviour
 
 
     class LookAround{
-        public float visionRange = 5f;
+        public float visionRange = 1f;
         public virtual void GetRange(){}
         public bool CanSee(float x1, float y1, float x2, float y2){
             float distance = Mathf.Sqrt((x1-x2)*(x1-x2) + (y1-y2) * (y1-y2));
@@ -73,7 +80,7 @@ public class Vision : MonoBehaviour
     
     class LookAsSmurf : LookAround{
         public override void GetRange(){
-            visionRange = visionRange * 1.1f;
+            visionRange = visionRange * 1.5f;
         }
     }
     class LookAsGargamel : LookAround{
