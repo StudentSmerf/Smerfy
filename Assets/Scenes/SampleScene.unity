@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -159,7 +160,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.17182271, g: 0.46226418, b: 0.2071146, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -207,6 +208,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db082a02f131424f8da9b2c140d31fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
 --- !u!1 &1181795592
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,10 +266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e08e78fd775a7e46b5e37a19204538f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberOfSmurfs: 20
+  NumberOfSmurfs: 40
   NumberOfGargamels: 3
   NumberOfBushes: 10
-  Width: 30
+  Width: 10
   Height: 10
   NumberOfKlakiers: 0
   Smurf: {fileID: 348495293972991962, guid: 42a6167f7f3dacf45b2ce88b72e90019, type: 3}

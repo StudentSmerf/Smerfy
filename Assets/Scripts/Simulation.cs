@@ -7,11 +7,11 @@ using UnityEngine;
 public class Simulation : MonoBehaviour
 {
     //these numbers will be set by user
-    [SerializeField] private int NumberOfSmurfs = 20;
-    [SerializeField] private int NumberOfGargamels = 3;
-    [SerializeField] private int NumberOfBushes = 10;
-    [SerializeField] private float Width = 30f;
-    [SerializeField] private float Height = 15f;
+    [SerializeField] private int NumberOfSmurfs;
+    [SerializeField] private int NumberOfGargamels;
+    [SerializeField] private int NumberOfBushes;
+    [SerializeField] private float Width;
+    [SerializeField] private float Height;
 
     [SerializeField] private int NumberOfKlakiers = 0;
 
@@ -31,6 +31,12 @@ public class Simulation : MonoBehaviour
         List<GameObject> Gargamels = new List<GameObject>();
         List<GameObject> Klakiers = new List<GameObject>();
         List<GameObject> Bushes = new List<GameObject>();
+
+        NumberOfSmurfs = PlayerPrefs.GetInt("Smurfs");
+        NumberOfGargamels = PlayerPrefs.GetInt("Gargamels");
+        NumberOfBushes = PlayerPrefs.GetInt("Bushes");
+        Width = PlayerPrefs.GetFloat("Width");
+        Height = PlayerPrefs.GetFloat("Height");
     }
 
     void Start()

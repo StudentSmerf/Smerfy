@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07273964d7fd0e440b2d354029b4668d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Smurfs2: []
 --- !u!114 &-8675311580604174800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.061249524, g: 0.6503713, b: 0.8773585, a: 1}
+  m_Color: {r: 0.3924528, g: 0.90577847, b: 0.9811321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
