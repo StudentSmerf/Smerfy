@@ -10,9 +10,9 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Move(){
+    public void Move(float speed){
         Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-
+        /*
         switch (this.gameObject.tag)
             {
                 case "Smurf":
@@ -40,8 +40,13 @@ public class Movement : MonoBehaviour
                     Debug.Log("Tag not defined");
                     break;
             }
+            */
+
+            rb.velocity = Vector2.zero;
+            rb.AddForce(direction * speed);
     }
 
+    /*
     public void Run(Vector3 dangerPosition){
         RunSmurf MS = new RunSmurf();
         MS.SetSpeed();
@@ -83,4 +88,5 @@ public class Movement : MonoBehaviour
             speed = speed * 0.8f;
         }
     }
+    */
 }

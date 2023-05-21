@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GetPickedUp : MonoBehaviour
 {
-    public void Pick(string name){
+    public void Pick(){
         
-        switch (name)
+        switch (this.gameObject.tag)
             {
                 //Smurf being picked up
                 case "Smurf":

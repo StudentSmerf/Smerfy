@@ -91,19 +91,20 @@ public class Simulation : MonoBehaviour
             yield return new WaitForSeconds(1);
             //Simulate Smurfs
             foreach(GameObject smurf in Smurfs){
+                Smurf smurfObj = new Smurf();
                 switch (Random.Range(1,10))
                 {
                     case < 5:
-                        smurf.GetComponent<Movement>().Move();
+                        smurf.GetComponent<Movement>().Move(smurfObj.GetSpeed(false));
                         break;
                     case 5:
-                        Debug.Log(smurf.name + " Is looking for G");
-                        smurf.GetComponent<Vision>().LookForG(Gargamels, Smurfs);
-                        smurf.GetComponent<Vision>().LookForG(Klakiers, Smurfs);
+                        //Debug.Log(smurf.name + " Is looking for G");
+                        smurf.GetComponent<Vision>().LookForG(smurfObj.GetVision(), smurfObj.GetSpeed(true), Gargamels, Smurfs);
+                        smurf.GetComponent<Vision>().LookForG(smurfObj.GetVision(), smurfObj.GetSpeed(true), Klakiers, Smurfs);
                         break;
                     case > 5:
                         //Debug.Log(smurf.name + "Is looking for Berries");
-                        smurf.GetComponent<Vision>().Look("SmurfB", Bushes);
+                        smurf.GetComponent<Vision>().Look(smurfObj.GetVision(), Bushes);
                         break;
                     default:
                         Debug.Log("Rand not Working?");
@@ -112,14 +113,15 @@ public class Simulation : MonoBehaviour
             }
             //Simulate Gargamels
             foreach(GameObject gargamel in Gargamels){
+                Gargamel gargamelObj = new Gargamel();
                 switch (Random.Range(1,10))
                 {
                     case < 5:
-                        gargamel.GetComponent<Movement>().Move();
+                        gargamel.GetComponent<Movement>().Move(gargamelObj.GetSpeed(false));
                         break;
                     case > 5:
                         //Debug.Log(gargamel.name + " Is looking for S");
-                        gargamel.GetComponent<Vision>().Look("Gargamel", Smurfs);
+                        gargamel.GetComponent<Vision>().Look(gargamelObj.GetVision(), Smurfs);
                         break;
                     case 5:
                         AddKlakier(gargamel.GetComponent<SpawnKlakier>().Spawn(Klakier));
@@ -131,16 +133,16 @@ public class Simulation : MonoBehaviour
                 }
             }
             //Simulate Klakiers
-            foreach (GameObject klakier in Klakiers)
-            {
+            foreach (GameObject klakier in Klakiers){
+                Klakier klakierObj = new Klakier();
                 switch (Random.Range(1,3))
                 {
                     case 1:
-                        klakier.GetComponent<Movement>().Move();
+                        klakier.GetComponent<Movement>().Move(klakierObj.GetSpeed(false));
                         break;
                     case 2:
                         //Debug.Log(klakier.name + " Is looking for S");
-                        klakier.GetComponent<Vision>().Look("Klakier", Smurfs);
+                        klakier.GetComponent<Vision>().Look(klakierObj.GetVision(), Smurfs);
                         break;
                     default:
                         Debug.Log("Rand not Working?");
