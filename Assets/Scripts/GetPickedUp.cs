@@ -19,6 +19,7 @@ public class GetPickedUp : MonoBehaviour
                     this.transform.position = new Vector3(0, this.transform.position.y + 200f, 0);
                     Debug.Log("Point for S");
                     PointCounter.pointcounter.AddingPSmurfs();
+                    Debug.Log(this.gameObject.name + "fell in water2");
                     break;
                 default:
                     Debug.Log(this.gameObject.name + "fell in water");
