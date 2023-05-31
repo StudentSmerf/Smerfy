@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AbstractObj.simulateResults;
+
 
 
 
@@ -25,12 +27,26 @@ public class Simulation : MonoBehaviour
     [SerializeField] private List<GameObject> Klakiers;
     [SerializeField] private List<GameObject> Bushes;
 
+    //[SerializeField] private List<GameObject> Objects;
+
+    private List<Smurf> ListSmurfs;
+    private List<Gargamel> ListGargamels;
+    private List<Klakier> ListKlakiers;
+    private List<AbstractObj> ListObjects;
+
+    private List<AbstractObj> TempListObjects;
+
 
     private void Awake() {
         List<GameObject> Smurfs = new List<GameObject>();
         List<GameObject> Gargamels = new List<GameObject>();
         List<GameObject> Klakiers = new List<GameObject>();
+
+        
+
         List<GameObject> Bushes = new List<GameObject>();
+
+        
 
         NumberOfSmurfs = PlayerPrefs.GetInt("Smurfs");
         NumberOfGargamels = PlayerPrefs.GetInt("Gargamels");
@@ -41,6 +57,11 @@ public class Simulation : MonoBehaviour
 
     void Start()
     {
+        ListSmurfs = new List<Smurf>();
+        ListGargamels = new List<Gargamel>();
+        ListKlakiers = new List<Klakier>();
+        ListObjects = new List<AbstractObj>();
+        TempListObjects = new List<AbstractObj>();
         //Create World
         this.gameObject.GetComponent<CreateWorld>().Create(Width, Height);
 
@@ -48,16 +69,32 @@ public class Simulation : MonoBehaviour
         
         for(int i = 0; i < NumberOfSmurfs; i++){
             GameObject NewSmurf = Instantiate(Smurf, GetPosition(), Quaternion.identity);
-            Smurfs.Add(NewSmurf);
+            Smurf SmurfObj = new Smurf(NewSmurf);
+            ListSmurfs.Add(SmurfObj);
+            ListObjects.Add(SmurfObj);
+            //Debug.Log(ListObjects);
+            //Debug.Log(ListObjects.Count);
+            //Smurfs.Add(NewSmurf);
+            //Objects.Add(NewSmurf);
             NewSmurf.name = "Smurf " + i;
             
         }
         for(int j = 0; j < NumberOfGargamels; j++){
             GameObject NewGargamel = Instantiate(Gargamel, GetPosition(), Quaternion.identity);
-            Gargamels.Add(NewGargamel);
+            Gargamel GargamelObj = new Gargamel(NewGargamel);
+            ListGargamels.Add(GargamelObj);
+            ListObjects.Add(GargamelObj); 
+            //Debug.Log(GargamelObj);
+            //Gargamels.Add(NewGargamel);
+            //Objects.Add(NewGargamel);
             NewGargamel.name = "Gargamel " + j;
             
         }
+
+
+
+
+
         for(int k = 0; k < NumberOfBushes; k++){
             GameObject NewBush = Instantiate(Bush, GetPosition(), Quaternion.identity);
             Bushes.Add(NewBush);
@@ -69,7 +106,7 @@ public class Simulation : MonoBehaviour
         
         //StartSimulation
         StartCoroutine("StartSimulation");
-
+        
 
     }
 
@@ -78,21 +115,51 @@ public class Simulation : MonoBehaviour
     }
 
     public void AddKlakier(GameObject newKlakier){
-        Klakiers.Add(newKlakier);
+        Klakier KlakierObj = new Klakier(newKlakier);
+        ListKlakiers.Add(KlakierObj);
+        TempListObjects.Add(KlakierObj); 
+
+        //Klakiers.Add(newKlakier);
+        //Objects.Add(newKlakier);
+
         newKlakier.name = "Klakier " + Klakiers.Count;
         NumberOfKlakiers = Klakiers.Count;
     }
 
     IEnumerator StartSimulation(){
-        
+        //Debug.Log(ListObjects);
         while (true)
         {
-            Debug.Log("Simulation starts with new round");
+            if(TempListObjects.Count != 0){
+                
+                ListObjects.AddRange(TempListObjects);
+                TempListObjects.Clear();
+                
+            }
+            foreach (AbstractObj abstractObj in ListObjects)
+            {
+                
+
+
+                if(abstractObj.Simulate() == spawnKlakier){
+                    Vector3 location = abstractObj.spawnKlakier();
+                    GameObject K = Instantiate(Klakier, location + Vector3.right, Quaternion.identity);
+                    AddKlakier(K);
+                }
+            }
+
+
+            
+
+
+            //Debug.Log("Simulation starts with new round");
             yield return new WaitForSeconds(1);
+            /*
             //Simulate Smurfs
             foreach(GameObject smurf in Smurfs){
                 if(smurf.transform.position.x > -100f){
                     Smurf smurfObj = new Smurf();
+                    smurfObj.addGO(Smurf);
                     switch (Random.Range(1,10))
                     {
                         case < 5:
@@ -158,6 +225,7 @@ public class Simulation : MonoBehaviour
                     }
                 }
             }
+            */
             
         }
     }
