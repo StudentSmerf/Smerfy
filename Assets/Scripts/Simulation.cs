@@ -73,10 +73,8 @@ public class Simulation : MonoBehaviour
 
     public void AddKlakier(GameObject newKlakier){
         Klakier KlakierObj = new Klakier(newKlakier);
-        ListKlakiers.Add(KlakierObj);
         TempListObjects.Add(KlakierObj); 
-        newKlakier.name = "Klakier " + Klakiers.Count;
-        NumberOfKlakiers = Klakiers.Count;
+        NumberOfKlakiers++;
     }
 
     IEnumerator StartSimulation(){
