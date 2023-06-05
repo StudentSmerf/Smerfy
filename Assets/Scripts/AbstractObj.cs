@@ -15,6 +15,7 @@ public abstract class AbstractObj
     public GameObject me;
 
     public float speed;
+    public float runSpeed;
     public float visionRange;
 
     

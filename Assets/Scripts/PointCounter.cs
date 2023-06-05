@@ -13,7 +13,6 @@ public class PointCounter : MonoBehaviour
     }
     void Start()
     {
-        
         StartCoroutine(CheckforVictory());
     }
 

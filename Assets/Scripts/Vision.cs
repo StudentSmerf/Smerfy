@@ -6,8 +6,6 @@ public class Vision : MonoBehaviour
 {
     
     public void Look(float visionRange, string tag){
-
-
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag(tag))
         {
             float x1, y1, x2, y2, distance;
@@ -19,7 +17,6 @@ public class Vision : MonoBehaviour
             if(distance <= visionRange){
                 obj.GetComponent<GetPickedUp>().Pick();
             }
-            
         }
     }
     
