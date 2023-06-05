@@ -8,9 +8,11 @@ public class PointCounter : MonoBehaviour
     public static PointCounter pointcounter;
     [SerializeField] private int counterS=0;
     [SerializeField] private int counterG=0;
+    void Awake(){
+        pointcounter=this;
+    }
     void Start()
     {
-        pointcounter=this;
         StartCoroutine(CheckforVictory());
     }
 

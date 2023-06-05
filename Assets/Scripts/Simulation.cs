@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using static AbstractObj.simulateResults;
 
 public class Simulation : MonoBehaviour
 {
@@ -19,19 +18,13 @@ public class Simulation : MonoBehaviour
     [SerializeField] private GameObject Gargamel;
     [SerializeField] private GameObject Klakier;
     [SerializeField] private GameObject Bush;
-    
-    [SerializeField] private List<GameObject> Smurfs;
-    [SerializeField] private List<GameObject> Gargamels;
-    [SerializeField] private List<GameObject> Klakiers;
-    [SerializeField] private List<GameObject> Bushes;
+
+    [SerializeField] private List<AbstractObj> ListObjects;
+
+    [SerializeField] private List<AbstractObj> TempListObjects;
 
 
     private void Awake() {
-        List<GameObject> Smurfs = new List<GameObject>();
-        List<GameObject> Gargamels = new List<GameObject>();
-        List<GameObject> Klakiers = new List<GameObject>();
-        List<GameObject> Bushes = new List<GameObject>();
-
         NumberOfSmurfs = PlayerPrefs.GetInt("Smurfs");
         NumberOfGargamels = PlayerPrefs.GetInt("Gargamels");
         NumberOfBushes = PlayerPrefs.GetInt("Bushes");
@@ -41,6 +34,8 @@ public class Simulation : MonoBehaviour
 
     void Start()
     {
+        ListObjects = new List<AbstractObj>();
+        TempListObjects = new List<AbstractObj>();
         //Create World
         this.gameObject.GetComponent<CreateWorld>().Create(Width, Height);
 
@@ -48,28 +43,27 @@ public class Simulation : MonoBehaviour
         
         for(int i = 0; i < NumberOfSmurfs; i++){
             GameObject NewSmurf = Instantiate(Smurf, GetPosition(), Quaternion.identity);
-            Smurfs.Add(NewSmurf);
+            Smurf SmurfObj = new Smurf(NewSmurf);
+            ListObjects.Add(SmurfObj);
             NewSmurf.name = "Smurf " + i;
-            
         }
         for(int j = 0; j < NumberOfGargamels; j++){
             GameObject NewGargamel = Instantiate(Gargamel, GetPosition(), Quaternion.identity);
-            Gargamels.Add(NewGargamel);
+            Gargamel GargamelObj = new Gargamel(NewGargamel);
+            ListObjects.Add(GargamelObj); 
             NewGargamel.name = "Gargamel " + j;
-            
         }
+
         for(int k = 0; k < NumberOfBushes; k++){
             GameObject NewBush = Instantiate(Bush, GetPosition(), Quaternion.identity);
-            Bushes.Add(NewBush);
             NewBush.name = "Bush " + k;
-            
         }
 
         //SIMULATION
         
         //StartSimulation
         StartCoroutine("StartSimulation");
-
+        
 
     }
 
@@ -78,78 +72,30 @@ public class Simulation : MonoBehaviour
     }
 
     public void AddKlakier(GameObject newKlakier){
-        Klakiers.Add(newKlakier);
+        Klakier KlakierObj = new Klakier(newKlakier);
+        ListKlakiers.Add(KlakierObj);
+        TempListObjects.Add(KlakierObj); 
         newKlakier.name = "Klakier " + Klakiers.Count;
         NumberOfKlakiers = Klakiers.Count;
     }
 
     IEnumerator StartSimulation(){
-        
         while (true)
         {
-            Debug.Log("Simulation starts with new round");
-            yield return new WaitForSeconds(1);
-            //Simulate Smurfs
-            foreach(GameObject smurf in Smurfs){
-                switch (Random.Range(1,10))
-                {
-                    case < 5:
-                        smurf.GetComponent<Movement>().Move();
-                        break;
-                    case 5:
-                        Debug.Log(smurf.name + " Is looking for G");
-                        smurf.GetComponent<Vision>().LookForG(Gargamels, Smurfs);
-                        smurf.GetComponent<Vision>().LookForG(Klakiers, Smurfs);
-                        break;
-                    case > 5:
-                        //Debug.Log(smurf.name + "Is looking for Berries");
-                        smurf.GetComponent<Vision>().Look("SmurfB", Bushes);
-                        break;
-                    default:
-                        Debug.Log("Rand not Working?");
-                        break;
-                }
+            if(TempListObjects.Count != 0){  
+                ListObjects.AddRange(TempListObjects);
+                TempListObjects.Clear();   
             }
-            //Simulate Gargamels
-            foreach(GameObject gargamel in Gargamels){
-                switch (Random.Range(1,10))
-                {
-                    case < 5:
-                        gargamel.GetComponent<Movement>().Move();
-                        break;
-                    case > 5:
-                        //Debug.Log(gargamel.name + " Is looking for S");
-                        gargamel.GetComponent<Vision>().Look("Gargamel", Smurfs);
-                        break;
-                    case 5:
-                        AddKlakier(gargamel.GetComponent<SpawnKlakier>().Spawn(Klakier));
-                        //Debug.Log(gargamel.name + "Is Spawning Klakier");
-                        break;
-                    default:
-                        Debug.Log("Rand not Working?");
-                        break;
-                }
-            }
-            //Simulate Klakiers
-            foreach (GameObject klakier in Klakiers)
+            foreach (AbstractObj abstractObj in ListObjects)
             {
-                switch (Random.Range(1,3))
-                {
-                    case 1:
-                        klakier.GetComponent<Movement>().Move();
-                        break;
-                    case 2:
-                        //Debug.Log(klakier.name + " Is looking for S");
-                        klakier.GetComponent<Vision>().Look("Klakier", Smurfs);
-                        break;
-                    default:
-                        Debug.Log("Rand not Working?");
-                        break;
+                if(abstractObj.Simulate() == spawnKlakier){
+                    Vector3 location = abstractObj.spawnKlakier();
+                    GameObject K = Instantiate(Klakier, location + Vector3.right, Quaternion.identity);
+                    AddKlakier(K);
                 }
             }
-            
+
+            yield return new WaitForSeconds(1);
         }
     }
-    
-    
 }
