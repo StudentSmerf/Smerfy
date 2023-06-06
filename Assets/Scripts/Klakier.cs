@@ -20,7 +20,7 @@ public class Klakier : AbstractObj
     
     public Klakier(GameObject obj){
         me = obj;
-        speed = 12f;
+        speed = 22f;
         visionRange = 1.3f;
     }
 }

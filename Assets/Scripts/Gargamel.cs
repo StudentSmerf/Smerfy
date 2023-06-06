@@ -23,7 +23,7 @@ public class Gargamel : AbstractObj
     
     public Gargamel(GameObject obj){
         me = obj;
-        speed = 10f;
+        speed = 18f;
         visionRange = 2.3f;
     }
 }

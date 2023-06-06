@@ -27,6 +27,12 @@ public class Menu : MonoBehaviour
         NumberOfBushes.text = BushesS.value.ToString();
         Width.text = WidthS.value.ToString();
         Heigth.text = HeigthS.value.ToString();
+
+        SmurfsS.value = PlayerPrefs.GetInt("Smurfs");
+        GargamelsS.value = PlayerPrefs.GetInt("Gargamels");
+        BushesS.value = PlayerPrefs.GetInt("Bushes");
+        WidthS.value = PlayerPrefs.GetFloat("Width");
+        HeigthS.value = PlayerPrefs.GetFloat("Height");
     }
 
     public void OnSmurfsChanged(){
