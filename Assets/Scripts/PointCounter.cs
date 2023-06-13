@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.IO;
 
 public class PointCounter : MonoBehaviour
 {
@@ -33,10 +34,22 @@ public class PointCounter : MonoBehaviour
         {
             if(counterS==PlayerPrefs.GetInt("Bushes"))
             {
+                if(PlayerPrefs.GetInt("Test") == 1){
+                    Debug.Log("S won, S=" + PlayerPrefs.GetInt("Smurfs") + ", B="+ PlayerPrefs.GetInt("Bushes") + ", G="+ PlayerPrefs.GetInt("Gargamels") + ", points S = " + counterS + ", points G = " + counterG);
+                    TextWriter tsw = new StreamWriter(@"C:\Results\Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
+                    tsw.WriteLine(PlayerPrefs.GetInt("Smurfs") + "\t" + PlayerPrefs.GetInt("Bushes") + "\t" + PlayerPrefs.GetInt("Gargamels") + "\t" + counterS + "\t" + counterG);
+                    tsw.Close();
+                }
                 SceneManager.LoadScene("SsVictory", LoadSceneMode.Single);
             }
             else if(counterG==PlayerPrefs.GetInt("Smurfs"))
             {
+                if(PlayerPrefs.GetInt("Test") == 1){
+                    Debug.Log("G won, S=" + PlayerPrefs.GetInt("Smurfs") + ", B="+ PlayerPrefs.GetInt("Bushes") + ", G="+ PlayerPrefs.GetInt("Gargamels") + ", points S = " + counterS + ", points G = " + counterG);
+                    TextWriter tsw = new StreamWriter(@"C:\Results\Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
+                    tsw.WriteLine(PlayerPrefs.GetInt("Smurfs") + "\t" + PlayerPrefs.GetInt("Bushes") + "\t" + PlayerPrefs.GetInt("Gargamels") + "\t" + counterS + "\t" + counterG);
+                    tsw.Close();
+                }                
                 SceneManager.LoadScene("GsVictory", LoadSceneMode.Single);
             }
 

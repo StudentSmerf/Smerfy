@@ -42,7 +42,6 @@ public class Vision : MonoBehaviour
                     //if there are Smurfs, tell them to run
                     if(distance <= visionRange){
                         s.GetComponent<Movement>().Move(runSpeed);
-                        Debug.Log(s.name + "is Running");
                     }
                 }
                 return;

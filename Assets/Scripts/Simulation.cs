@@ -23,6 +23,7 @@ public class Simulation : MonoBehaviour
 
     [SerializeField] private List<AbstractObj> TempListObjects;
 
+    private float simSpeed;
 
     private void Awake() {
         NumberOfSmurfs = PlayerPrefs.GetInt("Smurfs");
@@ -30,6 +31,8 @@ public class Simulation : MonoBehaviour
         NumberOfBushes = PlayerPrefs.GetInt("Bushes");
         Width = PlayerPrefs.GetFloat("Width");
         Height = PlayerPrefs.GetFloat("Height");
+        simSpeed = PlayerPrefs.GetFloat("SimSpeed");
+
     }
 
     void Start()
@@ -93,7 +96,7 @@ public class Simulation : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1/simSpeed);
         }
     }
 }

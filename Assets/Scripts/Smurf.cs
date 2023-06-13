@@ -21,8 +21,8 @@ public class Smurf : AbstractObj
     
     public Smurf(GameObject obj){
         me = obj;
-        speed = 30f;
+        speed = 60f;
         visionRange = 2f;
-        runSpeed = 50f;
+        runSpeed = 100f;
     }
 }
