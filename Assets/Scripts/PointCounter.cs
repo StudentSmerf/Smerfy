@@ -36,7 +36,7 @@ public class PointCounter : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Test") == 1){
                     Debug.Log("S won, S=" + PlayerPrefs.GetInt("Smurfs") + ", B="+ PlayerPrefs.GetInt("Bushes") + ", G="+ PlayerPrefs.GetInt("Gargamels") + ", points S = " + counterS + ", points G = " + counterG);
-                    TextWriter tsw = new StreamWriter(@"C:\Results\Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
+                    TextWriter tsw = new StreamWriter(System.AppDomain.CurrentDomain.BaseDirectory + "Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
                     tsw.WriteLine(PlayerPrefs.GetInt("Smurfs") + "\t" + PlayerPrefs.GetInt("Bushes") + "\t" + PlayerPrefs.GetInt("Gargamels") + "\t" + counterS + "\t" + counterG);
                     tsw.Close();
                 }
@@ -46,7 +46,7 @@ public class PointCounter : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Test") == 1){
                     Debug.Log("G won, S=" + PlayerPrefs.GetInt("Smurfs") + ", B="+ PlayerPrefs.GetInt("Bushes") + ", G="+ PlayerPrefs.GetInt("Gargamels") + ", points S = " + counterS + ", points G = " + counterG);
-                    TextWriter tsw = new StreamWriter(@"C:\Results\Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
+                    TextWriter tsw = new StreamWriter(System.AppDomain.CurrentDomain.BaseDirectory + "Results" + PlayerPrefs.GetInt("FileNumber") + ".txt", true);
                     tsw.WriteLine(PlayerPrefs.GetInt("Smurfs") + "\t" + PlayerPrefs.GetInt("Bushes") + "\t" + PlayerPrefs.GetInt("Gargamels") + "\t" + counterS + "\t" + counterG);
                     tsw.Close();
                 }                
